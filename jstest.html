@@ -1,10 +1,9 @@
-<!-- 0513 -->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>js01</title>
+    <title>jstest</title>
   </head>
   <body>
     <header style="background-color: antiquewhite">
@@ -16,19 +15,12 @@
         <li><a href="./js04.html">Todoリスト</a></li>
       </ul>
     </header>
-    <ul></ul>
-    <!-- /bodyの直前にscript TAG -->
-    <script>
-      // 要素3つの配列データ
-      const items = ["Apple", "Peach", "Orange"];
-      //   mapメソッドはmap()
-      const itemTag = items
-        .map((item) => {
-          return `<li>${item}</li>`;
-        })
-        .join("");
-      const ultag = document.querySelector("ul");
-      ultag.insertAdjacentHTML("afterbegin", itemTag);
-    </script>
+    <h1>JStest</h1>
+    <button type="button"><a href="./js01.html">js01へ</a></button>
+    <button type="button"><a href="./js02.html">js02へ</a></button>
+    <button type="button"><a href="./js03.html">js03へ</a></button>
+    <h1>Todoリスト</h1>
+    <button type="button"><a href="./js04.html">Todoリストへ</a></button>
+    <script></script>
   </body>
 </html>
