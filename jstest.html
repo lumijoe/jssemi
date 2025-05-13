@@ -110,10 +110,30 @@
       document.addEventListener("DOMContentLoaded", function () {
         const savedUsername = localStorage.getItem("username");
         const savedPassword = localStorage.getItem("password");
+        const isRemembered = localStorage.getItem("rememberMe") === "true";
 
         if (savedUsername && savedPassword) {
           document.getElementById("username").value = savedUsername;
           document.getElementById("password").value = savedPassword;
+          if (isRemembered) {
+            document.getElementById("rememberMe").checked = true;
+          }
+          // ログイン状態のボタンスタイルを適用
+          const loginButton = document.querySelector('[data-bs-target="#loginModal"]');
+          loginButton.classList.remove("btn-primary");
+          loginButton.classList.add("btn-warning");
+          loginButton.textContent = "ログイン中";
+        }
+      });
+
+      // ブラウザを閉じる時の処理
+      window.addEventListener("beforeunload", function () {
+        const rememberMe = document.getElementById("rememberMe").checked;
+        if (!rememberMe) {
+          // ログイン情報を保持しない場合は、すべての情報を削除
+          localStorage.removeItem("username");
+          localStorage.removeItem("password");
+          localStorage.removeItem("rememberMe");
         }
       });
 
@@ -131,15 +151,23 @@
             if (rememberMe) {
               localStorage.setItem("username", username);
               localStorage.setItem("password", password);
+              localStorage.setItem("rememberMe", "true");
             } else {
               // チェックが外れている場合は保存された情報を削除
               localStorage.removeItem("username");
               localStorage.removeItem("password");
+              localStorage.removeItem("rememberMe");
             }
 
             message.classList.remove("text-danger");
             message.classList.add("text-success");
             message.textContent = "ログイン成功しました！🎉";
+
+            // ログインボタンの色を黄色に変更
+            const loginButton = document.querySelector('[data-bs-target="#loginModal"]');
+            loginButton.classList.remove("btn-primary");
+            loginButton.classList.add("btn-warning");
+            loginButton.textContent = "ログイン中";
 
             // 2秒後にモーダルを閉じる
             setTimeout(() => {
@@ -156,9 +184,9 @@
           }
         });
 
-      if (document.getElementById("rememberMe").checked) {
-        localStorage.setItem("username", username);
-      }
+      // if (document.getElementById("rememberMe").checked) {
+      //   localStorage.setItem("username", username);
+      // }
     </script>
   </body>
 </html>
