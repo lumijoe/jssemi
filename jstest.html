@@ -155,6 +155,10 @@
               "ユーザー名またはパスワードが間違っています。";
           }
         });
+
+      if (document.getElementById("rememberMe").checked) {
+        localStorage.setItem("username", username);
+      }
     </script>
   </body>
 </html>
