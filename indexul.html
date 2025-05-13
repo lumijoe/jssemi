@@ -1,0 +1,12 @@
+<ul></ul>
+<script>
+  const items = ["Apple", "Peach"];
+  const itemTag = items
+    .map((item) => {
+      return `<li>${item}</li>`;
+    })
+    .join("");
+  const ultag = document
+    .querySelector("ul")
+    .insertAdjacentHTML("afterbegin", itemTag);
+</script>

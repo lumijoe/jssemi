@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js04</title>
+  </head>
+  <body>
+    <h2>Todoリスト</h2>
+    <input id="todoInput" placeholder="やること" />
+    <button id="addButton">追加</button>
+    <ul id="todoList"></ul>
+
+    <script>
+      const todos = []; // やることリスト配列
+      const todoInput = document.querySelector("#todoInput");
+      const addButton = document.querySelector("#addButton");
+      const todoList = document.querySelector("#todoList");
+
+      addButton.addEventListener("click", () => {
+        const text = todoInput.value.trim();
+        if (!text) {
+          alert("することが入力されていません");
+          return;
+        }
+        todos.push({ text: text, done: false });
+        todoInput.value = ""; // 入力欄を空に
+        render();
+      });
+
+      function render() {
+        todoList.innerHTML = "";
+
+        todos.forEach((todo, index) => {
+          const html = `
+            <li>
+              <span style="text-decoration: ${
+                todo.done ? "line-through" : "none"
+              }">
+                ${todo.text}
+              </span>
+              <button class="done" data-index="${index}">完了</button>
+              <button class="delete" data-index="${index}">削除</button>
+            </li>
+          `;
+          todoList.insertAdjacentHTML("beforeend", html);
+        });
+
+        document.querySelectorAll(".done").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const i = Number(btn.dataset.index);
+            todos[i].done = !todos[i].done;
+            render();
+          });
+        });
+
+        document.querySelectorAll(".delete").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const i = Number(btn.dataset.index);
+            todos.splice(i, 1); // 配列から削除
+            render();
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<!-- function render(){
+      //表示部分を司るユーザー定義関数
+      todoList.innerHTML = '';//ulタグの中身を空にする
+      todos.forEach((todo,index) => {
+        //todoには要素自体が、indexにはインデックス値が入ってくる
+        const html = `<li><span style="text-decoration:${todo.done ? 'line-through':'none'}">
+          ${todo.text}
+        </span>
+        <button class="done" data-index="${index}">完了</button>
+        <button class="delete" data-index="${index}">削除</button>
+        </li>`;
+        todoList.insertAdjacentHTML('beforeend',html);//終了タグの直前に入れることで、新しい順に表示される
+      });
+    } -->
